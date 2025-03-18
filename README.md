@@ -81,3 +81,8 @@ MentorAI is built using a **modern and scalable tech stack**:
 git clone <repo-url>
 cd mentorai
 ```
+
+```bash
+npm install
+
+```
