@@ -59,7 +59,7 @@ export async function updateUser(data) {
         // return the updated user and industryInsight
         return { updatedUser, industryInsight };
       },
-      { timeout: 1000 }
+      { timeout: 10000 }
     );
   } catch (error) {
     console.log("error updating the user", error.message);

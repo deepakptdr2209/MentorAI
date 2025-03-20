@@ -1,10 +1,10 @@
 "use client";
 
 import { userSchema } from "@/app/lib/zodSchema";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -25,6 +25,10 @@ import { Label } from "@/components/ui/label";
 import { set } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { updateUser } from "@/actions/user";
+import useFetch from "@/hooks/use-fetch";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const OnboardingForm = ({ industries }) => {
   const [selectedIndustry, setSelectedIndustry] = useState("");
@@ -38,11 +42,36 @@ const OnboardingForm = ({ industries }) => {
   } = useForm({
     resolver: zodResolver(userSchema),
   });
+  const {
+    data: updateResult,
+    loading: updateLoading,
+    userFn: updateUserData,
+  } = useFetch(updateUser);
 
   const onSubmit = async (values) => {
     console.log(values);
+    // Call API to save user data
+    try {
+      const formattedIndustry = `${values.industry}-${values.subIndustry
+        .toLowerCase()
+        .replace(/ /g, "-")}`;
+
+      await updateUserData({
+        ...values,
+        industry: formattedIndustry,
+      });
+    } catch (error) {
+      console.log("onBoarding error :", error);
+    }
   };
 
+  useEffect(() => {
+    if (updateResult && !updateLoading) {
+      toast.success("Profile completed successfully!");
+      router.push("/dashboard");
+      router.refresh();
+    }
+  }, [updateResult, updateLoading]);
   const watchIndustry = watch("industry");
 
   return (
@@ -160,8 +189,15 @@ const OnboardingForm = ({ industries }) => {
                 <p className="text-red-500">{errors.bio.message}</p>
               )}
             </div>
-            <Button type="submit" className={"w-full"}>
-              Complete Profile
+            <Button type="submit" className={"w-full"} disabled={updateLoading}>
+              {updateLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Complete Profile"
+              )}
             </Button>
           </form>
         </CardContent>
