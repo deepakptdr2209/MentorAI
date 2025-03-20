@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { set } from "zod";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { updateUser } from "@/actions/user";
@@ -32,7 +32,7 @@ import { Loader2 } from "lucide-react";
 
 const OnboardingForm = ({ industries }) => {
   const [selectedIndustry, setSelectedIndustry] = useState("");
-  const router = useRouter;
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ const OnboardingForm = ({ industries }) => {
   const {
     data: updateResult,
     loading: updateLoading,
-    userFn: updateUserData,
+    fn: updateUserData,
   } = useFetch(updateUser);
 
   const onSubmit = async (values) => {
@@ -66,10 +66,13 @@ const OnboardingForm = ({ industries }) => {
   };
 
   useEffect(() => {
-    if (updateResult && !updateLoading) {
+    console.log("updateResult", updateResult);
+    if (updateResult?.success && !updateLoading) {
       toast.success("Profile completed successfully!");
       router.push("/dashboard");
       router.refresh();
+    } else if (updateResult && !updateLoading) {
+      toast.error("Failed to update profile.");
     }
   }, [updateResult, updateLoading]);
   const watchIndustry = watch("industry");

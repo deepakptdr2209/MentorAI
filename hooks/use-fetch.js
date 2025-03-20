@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { set } from "zod";
 
@@ -9,7 +9,7 @@ const useFetch = (cb) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const userFn = async (...arg) => {
+  const fn = async (...arg) => {
     setLoading(true);
     setError(null);
     try {
@@ -23,6 +23,6 @@ const useFetch = (cb) => {
       setLoading(false);
     }
   };
-  return { data, loading, error, userFn, setData };
+  return { data, loading, error, fn, setData };
 };
 export default useFetch;

@@ -2,6 +2,8 @@
 
 import db from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { generateAiInsights } from "./dashboard";
+import { revalidatePath } from "next/cache";
 // This function is used to update the user data
 export async function updateUser(data) {
   // Before updating user we need to check if the user is authorized
@@ -29,16 +31,12 @@ export async function updateUser(data) {
         });
         // 2. if not then we will create the industry for now but latter we wiil be adding the industry usign AI
         if (!industryInsight) {
-          industryInsight = await tx.industryInsight.create({
+          const insights = await generateAiInsights(data.industry);
+
+          industryInsight = await db.industryInsight.create({
             data: {
               industry: data.industry,
-              salaryRanges: [],
-              growthRate: 0,
-              demandLevel: "Medium",
-              topSkills: [],
-              marketOutlook: "Positve",
-              keyTrends: [],
-              recommendedSkills: [],
+              ...insights,
               nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             },
           });
@@ -61,6 +59,8 @@ export async function updateUser(data) {
       },
       { timeout: 10000 }
     );
+    revalidatePath("/");
+    return { success: true, ...result };
   } catch (error) {
     console.log("error updating the user", error.message);
     throw new Error("Failed to update user");
