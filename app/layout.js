@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
       <html
         lang="en"
         className="dark"
+        suppressHydrationWarning
         foxified=""
         bbai-tooltip-injected="true"
         style={{ colorScheme: "dark" }}

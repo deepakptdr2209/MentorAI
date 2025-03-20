@@ -28,11 +28,11 @@ export default async function Header() {
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/">
           <Image
-            src={"/logo1.png"}
+            src={"/logo3.png"}
             alt="Mentorai Logo"
-            width={500}
-            height={500}
-            className="h-18 w-auto py-1  object-contain"
+            width={700}
+            height={700}
+            className="h-22 w-auto py-1  object-contain"
           />
         </Link>
 
