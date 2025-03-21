@@ -162,3 +162,9 @@
   height: 100%;
   background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.9));
 }
+.gradient-title {
+  background: linear-gradient(to right, #ff09c9, #4a90e2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
