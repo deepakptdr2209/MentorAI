@@ -22,6 +22,7 @@ import { testimonial } from "@/data/testimonial";
 import { faqs } from "@/data/faqs";
 import { howItWorks } from "@/data/howItWorks";
 import HeroSection from "@/components/Hero-section";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
 export default function LandingPage() {
   return (
@@ -116,7 +117,16 @@ export default function LandingPage() {
           <h2 className="text-3xl font-bold text-center mb-12">
             What Our Users Say
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+          <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+            <InfiniteMovingCards
+              items={testimonial}
+              direction="right"
+              speed="slow"
+            />
+          </div>
+
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {testimonial.map((testimonial, index) => (
               <Card key={index} className="bg-background">
                 <CardContent className="pt-6">
@@ -156,7 +166,7 @@ export default function LandingPage() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 

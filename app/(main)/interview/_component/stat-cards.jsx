@@ -1,7 +1,7 @@
 import React from "react";
 
 const StatCards = () => {
-  return <div>StatCards</div>;
+  return <div></div>;
 };
 
 export default StatCards;
