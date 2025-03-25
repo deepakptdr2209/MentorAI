@@ -39,8 +39,7 @@ const HeroSection = () => {
             <Cover>Professional</Cover> *
           </h1> */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent  bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-            Your AI Career Coach for <br /> at{" "}
-            <Cover>Professional Growth</Cover>
+            Your AI Career Coach <br /> for <Cover>Professional Growth</Cover>
           </h1>
           <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
             Advance your career with personalized guidance, interview prep, and
