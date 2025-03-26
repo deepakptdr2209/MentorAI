@@ -1,12 +1,12 @@
 "use server";
 
-const { default: db } = require("@/lib/prisma");
-const { auth } = require("@clerk/nextjs/server");
+import db from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
+
 const {
   GoogleGenerativeAI,
   GenerativeModel,
 } = require("@google/generative-ai");
-const { default: next } = require("next");
 
 const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAi.getGenerativeModel({

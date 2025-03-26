@@ -6,10 +6,10 @@ import DashboardView from "./_component/Dashboard-view";
 
 const IndustryInsights = async () => {
   const { isOnboraded } = await getOnboardedUser();
-  const insights = await getIndustryInsights();
   if (!isOnboraded) {
     redirect("/onboarding "); // redirect to dashboard if user is already onboaded
   }
+  const insights = await getIndustryInsights();
   return (
     <div className="container mx-auto">
       <DashboardView insights={insights} />
