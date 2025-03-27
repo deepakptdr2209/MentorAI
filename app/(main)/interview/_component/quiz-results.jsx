@@ -1,5 +1,5 @@
 "use client";
-
+// THis will show Quiz Result after the completion of quiz by user
 import { Trophy, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
